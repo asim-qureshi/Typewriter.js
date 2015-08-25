@@ -19,11 +19,11 @@
 				this.sentences.push(this.elem.text());
 			};	
 
-			this.deleteSpeed = config.deleteSpeed || 1000; //speed at which the sentence starts deleting after initially being written
-			this.typeSpeed = config.typeSpeed || 100; //speed at which each individual letter is keyed in
-			this.backSpeed = config.backSpeed || 50; //speed at which each individual letter is deleted in
+			this.deleteSpeed = config.deleteSpeed || 1000; //delay between sentence writing to deleting
+			this.typeSpeed = config.typeSpeed || 100; //speed at which each individual letter is typed in
+			this.backSpeed = config.backSpeed || 50; //speed at which each individual letter is deleted
 			this.handler = config.handler || this.typing; //trigger function as config.handler, or autotrigger if not passed
-			this.removeCursor = config.removeCursor || false; //option hide the cursor after finishing typing
+			this.removeCursor = config.removeCursor || false; //option to hide the cursor after finishing typing
 			this.lines = {};
 			this.limit = this.sentences.length;
 			this.setLines();
@@ -31,7 +31,7 @@
 		},
 
 
-		setLines: function () {  //empty and hide the tag where the font is to be written
+		setLines: function () {
 			this.elem.empty().hide();
 			for (var i = 0; i < this.sentences.length; i++) {
 				var typeLine = '';
