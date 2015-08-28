@@ -12,7 +12,7 @@
 	"type animation"
   },
   "dependencies": {
-	 "jquery"  : ">= 1.11.2",
+	  "jquery": "~2.1.4"
   },
   "devDependencies": {
     "grunt-contrib-uglify": "^0.9.1",
