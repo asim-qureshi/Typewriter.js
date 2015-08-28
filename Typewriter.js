@@ -5,113 +5,114 @@
 	var Typed = {
 
 		init: function (config, element) {
-
-			config ? config = config : config  = {};
-
-			this.elem = $(element).css('white-space', 'pre'); //preserve whitespace when grabbing DOM element text
+			var i;
+			config = typeof (config) !== 'object' ? {} : config;
+			this.elem = $(element).css('white-space', 'pre'); //preserve whitespace
 			this.sentences = [];
-
-			if (config && config.sentences) {				
-				for (var i = 0; i < config.sentences.length; i++) {
+			if (config.sentences) {
+				for (i = 0; i < config.sentences.length; i++) {
 					this.sentences[i] = config.sentences[i].split('');
 				}
-			} else {	
+			} else {
 				this.sentences.push(this.elem.text());
-			};	
-
-			this.deleteSpeed = config.deleteSpeed || 1000; //delay between sentence writing to deleting
-			this.typeSpeed = config.typeSpeed || 100; //speed at which each individual letter is typed in
-			this.backSpeed = config.backSpeed || 50; //speed at which each individual letter is deleted
-			this.handler = config.handler || this.typing; //trigger function as config.handler, or autotrigger if not passed
-			this.removeCursor = config.removeCursor || false; //option to hide the cursor after finishing typing
+			}
+			this.lineSpeed = config.lineSpeed || 1000;
+			this.typeSpeed = config.typeSpeed || 100;
+			this.backSpeed = config.backSpeed || 50;
+			this.removeCursor = config.removeCursor || false;
+			this.loop = config.loop || false;
 			this.lines = {};
 			this.limit = this.sentences.length;
 			this.setLines();
-			this.handler();
+			this.typing();
 		},
-
 
 		setLines: function () {
+			var i,
+				x,
+				typeLine;
 			this.elem.empty().hide();
-			for (var i = 0; i < this.sentences.length; i++) {
-				var typeLine = '';
-				for (var x = 0; x < this.sentences[i].length; x++) {
+			for (i = 0; i < this.sentences.length; i++) {
+				typeLine = '';
+				for (x = 0; x < this.sentences[i].length; x++) {
 					this.sentences[i][x] = this.sentences[i][x].replace(/\s/g, '&nbsp;');
 					typeLine += '<span class="type_letter">' + this.sentences[i][x] + '</span>';
-				};
+				}
 				this.lines[i] = typeLine + '<span class="cursor">|</span>';
-			};
+			}
 		},
 
-
-		typing: function( index ) {
-			index ? index = index : index = 0;
-
+		typing: function (index) {
+			
+			index = !index ? 0 : index;
+			
 			this.elem.empty()
 				.append(this.lines[index])
 				.find('.type_letter').hide()
 				.end()
 				.show()
 				.find('.cursor').show();
-			this.reveal( index );
+			this.reveal(index);
 		},
 
-
-		reveal: function( index ) {
-			var sentenceLength = this.sentences[index].length,
-				delay = this.typeSpeed,
-				self = this;
-			for ( var i = 0; i < this.sentences[index].length; i++ ) {
-				var x = i + 1;
-				this.elem.find('.type_letter:nth-child(' + (x) +')').delay(x * delay).show(10);
-			}; 
-			setTimeout(function() {
-				self.deleteText( index );
-			}, 2000);
+		reveal: function (index) {
+			var self = this,
+				sentenceLength = this.sentences[index].length,
+				pause = this.typeSpeed,
+				i;
+			
+			for (i = 0; i < this.sentences[index].length; i++) {
+				this.elem.find('.type_letter:nth-child(' + (i + 1) + ')').delay((i + 1) * pause).show(10);
+			}
+			
+			setTimeout(function () {
+				self.deleteText(index);
+			}, sentenceLength * pause + self.lineSpeed);
 		},
 
-
-		deleteText: function( index ) {
-			var self = this;
+		deleteText: function (index) {
 			if (index + 1 < this.limit) {
-				setTimeout(function() {
-					self.backspace(index);	
-				}, 1000)
-
+				this.backspace(index);
 			} else {
 				this.endType();
-			};
+			}
 		},
-
-
-		backspace: function( index ) {
-			var reverse = this.sentences[index].length,
+		
+		backspace: function (index) {
+			var self = this,
+				slot = index === 'loop' ? this.sentences.length - 1 : index,
+				reverse = this.sentences[slot].length,
 				pause = this.backSpeed,
-				relayDelay = reverse * 150 + 1000,
-				self = this;
-			for ( var i = 0; i < this.sentences[index].length; i++ ) {
-					var coefPause = (i + 1) * pause;
-					this.elem.find('.type_letter:nth-child(' + reverse + ')').delay(coefPause).fadeOut(10);
-					reverse = reverse - 1;
-			};
-			setTimeout(function() {
-				self.typing( index + 1 );
+				relayDelay = (reverse * this.backSpeed) + this.lineSpeed,
+				i;
+			
+			for (i = 0; i < this.sentences[slot].length; i++) {
+				this.elem.find('.type_letter:nth-child(' + reverse + ')').delay((i + 1) * pause).fadeOut(10);
+				reverse -= 1;
+			}
+			setTimeout(function () {
+				if (index === 'loop') {
+					self.typing();
+				} else {
+					self.typing(index + 1);
+				}
 			}, relayDelay);
 		},
 
-
-		endType: function() {
-			if (this.removeCursor) {
+		endType: function () {
+			if (this.loop) {
+				this.backspace('loop');
+			} else if (this.removeCursor) {
 				this.elem.find('.cursor').hide();
-			};
+			}
 		}
 
 	};
 
-	$.fn.Typewrite = function(config) {
-		return this.each(function() {
-			var typed = Object.create( Typed );
-			typed.init( config, this );
+	$.fn.Typewrite = function (config) {
+		return this.each(function () {
+			var typed = Object.create(Typed);
+			typed.init(config, this);
 		});
 	};
 
