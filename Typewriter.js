@@ -29,8 +29,8 @@
 
 		setLines: function () {
 			var i,
-				x,
-				typeLine;
+			    x,
+			    typeLine;
 			this.elem.empty().hide();
 			for (i = 0; i < this.sentences.length; i++) {
 				typeLine = '';
@@ -43,9 +43,7 @@
 		},
 
 		typing: function (index) {
-			
 			index = !index ? 0 : index;
-			
 			this.elem.empty()
 				.append(this.lines[index])
 				.find('.type_letter').hide()
@@ -80,12 +78,11 @@
 		
 		backspace: function (index) {
 			var self = this,
-				slot = index === 'loop' ? this.sentences.length - 1 : index,
-				reverse = this.sentences[slot].length,
-				pause = this.backSpeed,
-				relayDelay = (reverse * this.backSpeed) + this.lineSpeed,
-				i;
-			
+			    slot = index === 'loop' ? this.sentences.length - 1 : index,
+			    reverse = this.sentences[slot].length,
+			    pause = this.backSpeed,
+			    relayDelay = (reverse * this.backSpeed) + this.lineSpeed,
+			    i;
 			for (i = 0; i < this.sentences[slot].length; i++) {
 				this.elem.find('.type_letter:nth-child(' + reverse + ')').delay((i + 1) * pause).fadeOut(10);
 				reverse -= 1;
