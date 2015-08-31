@@ -3,17 +3,17 @@ A jQuery plugin to animate typing and deleting text
 
 # To use:
 
-To use Typewriter.js, simple chain the Typewrite function to a jQuery selector, like so:
+To use Typewriter.js, simply chain the Typewrite function to a jQuery selector, like so:
 ```
   $('p').Typewrite();
 ```
 # Making it work for you:
 
-There a number of configuration options you can pass in order to optimize Typewrite to your preferences. We explore them below.
+There is a number of configuration options you can pass in order to optimize Typewriter.js to your preferences. We explore them below.
 
 ## What are we typing in?
 
-If no text is specified, Typewrite just uses the text that currently exists within the element itself. Thus, as an example, consider the follow scenario: 
+If no text is specified, Typewriter just uses the text that currently exists within the element itself. Thus, as an example, consider the follow scenario: 
 
 ``` 
   <h1>An imaginative title</h1>
@@ -26,7 +26,7 @@ If no text is specified, Typewrite just uses the text that currently exists with
   </script>
 ```
 
-In the above example, Typewrite will type in the text value of the h1 tag ('An imaginative title'). If you have more to write, you can pass an object to the Typewrite function, with an array of things to write in as the 'sentences' property of the object. See the example below: 
+In the above example, Typewriter will type in the text value of the h1 tag ('An imaginative title'). If you have more to write, you can pass an object to the Typewrite function, with an array of text to write in as the 'sentences' property of the object. See the example below: 
 
 ```
   $('p').Typewrite({
@@ -36,7 +36,7 @@ In the above example, Typewrite will type in the text value of the h1 tag ('An i
 ```
 
 In the example above, the 'sentences' array will be typed into the selected <p> element.
-<b> NOTE: </b> For purposes of SEO and to avoid validation warnings, It's not recommended that you leave empty tags that are to be written into later. Instead, I advise the following work around:
+<b> *NOTE: </b> For purposes of SEO and to avoid validation warnings, It's not recommended that you leave empty tags that are to be written into later. Instead, I advise the following work around:
 
 ```
   /* THE CSS  */
@@ -63,6 +63,6 @@ In the example above, the content is embedded in the HTML, hidden with CSS, and 
 
 ## **About the cursor animation: 
 
-<b>Important!</b>
+<b>*IMPORTANT!</b>
 
-The cursor is simply a <span> tag at the very end of the sentences, where the content is a vertical bar, and the blinking animation is done using CSS3 animations (see the cursor.css file). Please ensure to include the CSS therein into your project. 
+The cursor is simply a <span> tag at the very end of the sentences, where the content is a vertical bar, and the blinking animation is done using CSS3 animations (see the cursor.css file). <b>Please ensure to include the CSS therein into your project.</b> 
