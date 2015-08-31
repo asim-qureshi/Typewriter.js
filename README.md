@@ -36,6 +36,7 @@ In the above example, Typewriter will type in the text value of the h1 tag ('An 
 ```
 
 In the example above, the 'sentences' array will be typed into the selected element.
+
 <b> *NOTE: </b> For purposes of SEO and to avoid validation warnings, It's not recommended that you leave empty tags that are to be written into later. Instead, I advise the following work around:
 
 ```
