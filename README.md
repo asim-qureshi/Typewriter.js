@@ -66,4 +66,4 @@ In the example above, the content is embedded in the HTML, hidden with CSS, and 
 
 <b>*IMPORTANT!</b>
 
-The cursor is simply a <span> tag at the very end of the sentences, where the content is a vertical bar, and the blinking animation is done using CSS3 animations (see the cursor.css file). <b>Please ensure to include the CSS therein into your project.</b> 
+The cursor is simply a span tag at the very end of the text, and its content is a vertical bar. The blinking animation is done using CSS3 keyframes animation, included in the cursor.css file. <b>Please ensure to include the CSS therein into your project.</b> 
