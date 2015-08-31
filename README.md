@@ -7,9 +7,9 @@ To use Typewriter.js, simple chain the Typewrite function to a jQuery selector, 
 ```
   $('p').Typewrite();
 ```
-# Putting it to Use:
+# Making it work for you:
 
-There a number of configuration options you can pass in order to optimize Typewrite to your preferences. We expore them below.
+There a number of configuration options you can pass in order to optimize Typewrite to your preferences. We explore them below.
 
 ## What are we typing in?
 
@@ -36,7 +36,7 @@ In the above example, Typewrite will type in the text value of the h1 tag ('An i
 ```
 
 In the example above, the 'sentences' array will be typed into the selected <p> element.
-<b> NOTE: </b> For purposes of SEO and to avoid validation errors, It's not recommended that you leave empty tags that are to be written into later. Instead, I advise the following work around:
+<b> NOTE: </b> For purposes of SEO and to avoid validation warnings, It's not recommended that you leave empty tags that are to be written into later. Instead, I advise the following work around:
 
 ```
   /* THE CSS  */
@@ -59,11 +59,10 @@ In the example above, the 'sentences' array will be typed into the selected <p> 
       });
 ```
 
-In the example above, the content is embedded in the HTML, hidden with CSS, and will be typed in via Typewriter. Typewriter will automatically adjust the css to show the element when typing in. 
+In the example above, the content is embedded in the HTML, hidden with CSS, and will be typed in via Typewriter. Typewriter will automatically adjust the CSS to show the element when typing in. 
 
-## About the cursor animation: 
+## **About the cursor animation: 
 
 <b>Important!</b>
 
-The cursor is simply a <span> tag at the very end of the sentences, where the content is a vertical bar, and the blinking animation is done using CSS3 animations (see the cursor.css file). Please ensure to include the css therin into your css file. 
-
+The cursor is simply a <span> tag at the very end of the sentences, where the content is a vertical bar, and the blinking animation is done using CSS3 animations (see the cursor.css file). Please ensure to include the CSS therein into your project. 
