@@ -7,9 +7,9 @@ To use Typewriter.js, simply chain the Typewrite function to a jQuery selector, 
 ```
   $('p').Typewrite();
 ```
-# Making it work for you:
+# Optimization and customization:
 
-There is a number of configuration options you can pass in order to optimize Typewriter.js to your preferences. We explore them below.
+By passing an object to the Typewrite function, there are a number of configuration options available in order to optimize Typewriter.js to your preferences. We explore them below.
 
 ## What are we typing in?
 
@@ -67,3 +67,50 @@ In the example above, the content is embedded in the HTML, hidden with CSS, and 
 <b>*IMPORTANT!</b>
 
 The cursor is simply a span tag at the very end of the text, and its content is a vertical bar. The blinking animation is done using CSS3 keyframes animation, included in the cursor.css file. <b>Please ensure to include the CSS therein into your project.</b> 
+
+If you would like to remove the cursor after the typing/deleting animation is complete,set the 'removeCursor' property to 'true' within the object passed to Typewrite:
+
+```
+  $('p').Typewrite({
+    removeCursor: true
+  });
+    
+```
+
+As a default, the cursor element will continue blinking on unless this property is set to specify otherwise.
+
+## Looping the type animation:
+
+If for some reason you have a set of text you'd like to animate typing and deleting perpetually, there's an option to enable that as well! Simply set the 'loop' property of the object passed to Typewrite as 'true':
+
+```
+  $('p').Typewrite({
+    sentences: ['These lines will perpetually be typed and deleted', 'In this exact order', 'forever', 'forever-ever?!'],
+    loop: true
+  });
+  
+```
+
+## Typing and Deleting Speeds: 
+
+### Typing and deleting whole sentences: 
+
+Once a line of text is typed in, if another line is to follow, the current line will be animated backspacing out, making way for the new line of text. Between deleting a sentence and typing in one to follow, there is a standard delay of 1 second. If you wish to allow your text to display for a little longer before, you can do so by setting the 'lineSpeed' property of the object passed to Typewrite. The below example shows how to delay deleting our a text line for 3 seconds: 
+
+```
+  $('p').Typewrite({
+    sentences: ['This one will type in first', 'This one, after a delay of 3 seconds!],
+    lineSpeed: 3000
+  });
+```
+
+### Typing and deleting individual letters: 
+
+The speed at which an single letter is typed in can be customized by setting the 'typeSpeed' property of the object passed to the Typewrite function, where the default is 100 ms. By extension, the speed at which a single letter is deleted can be customized by setting the 'backSpeed' property of the object passed to the Typewrite function, where the default is 50 ms. The example below has each letter typed in at 500 ms and deleted at 150 ms:
+
+```
+  $('p').Typewrite({
+    sentences: ["I'm slow at typing!", "This is going to take all day!"],
+    typeSpeed: 500,
+    backSpeed: 150
+  });
