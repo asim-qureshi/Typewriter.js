@@ -1,5 +1,5 @@
 # Typewriter.js
-A jQuery plugin to animate typing and deleting text
+A jQuery plugin to animate typing and deleting text.
 
 # To use:
 
