@@ -95,7 +95,7 @@ If for some reason you have a set of text you'd like to animate typing and delet
 
 ### Typing and deleting whole sentences: 
 
-Once a line of text is typed in, if another line is to follow, the current line will be animated backspacing out, making way for the new line of text. Between deleting a sentence and typing in one to follow, there is a standard delay of 1 second. If you wish to allow your text to display for a little longer before, you can do so by setting the 'lineSpeed' property of the object passed to Typewrite. The below example shows how to delay deleting our a text line for 3 seconds: 
+Once a line of text is typed in, if another line is to follow, the current line will be animated backspacing out, making way for the new line of text. Between deleting a sentence and typing in one to follow, there is a standard delay of 1 second. If you wish to allow your text to display for a little longer before deleting, you can do so by setting the 'lineSpeed' property of the object passed to Typewrite. The below example shows how to delay deleting our a text line for 3 seconds: 
 
 ```
   $('p').Typewrite({
