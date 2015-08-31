@@ -95,18 +95,18 @@ If for some reason you have a set of text you'd like to animate typing and delet
 
 ### Typing and deleting whole sentences: 
 
-Once a line of text is typed in, if another line is to follow, the current line will be animated backspacing out, making way for the new line of text. Between deleting a sentence and typing in one to follow, there is a standard delay of 1 second. If you wish to allow your text to display for a little longer before deleting, you can do so by setting the 'lineSpeed' property of the object passed to Typewrite. The below example shows how to delay deleting our a text line for 3 seconds: 
+Once a line of text is typed in, if another line is to follow, the current line will be animated backspacing out, making way for the new line of text. Between deleting a sentence and typing in one to follow, there is a standard delay of 1 second. If you wish to allow your text to display for a little longer before deleting, you can do so by setting the 'lineSpeed' property of the object passed to Typewrite. The below example shows how to delay deleting out a text line for 3 seconds: 
 
 ```
   $('p').Typewrite({
-    sentences: ['This one will type in first', 'This one, after a delay of 3 seconds!],
+    sentences: ['This one will type in first', 'This one, after a delay of 3 seconds!'],
     lineSpeed: 3000
   });
 ```
 
 ### Typing and deleting individual letters: 
 
-The speed at which an single letter is typed in can be customized by setting the 'typeSpeed' property of the object passed to the Typewrite function, where the default is 100 ms. By extension, the speed at which a single letter is deleted can be customized by setting the 'backSpeed' property of the object passed to the Typewrite function, where the default is 50 ms. The example below has each letter typed in at 500 ms and deleted at 150 ms:
+The speed at which a single letter is typed in can be customized by setting the 'typeSpeed' property of the object passed to the Typewrite function, where the default is 100 ms. By extension, the speed at which a single letter is deleted can be customized by setting the 'backSpeed' property of the object passed to the Typewrite function, where the default is 50 ms. The example below has each letter typed in at 500 ms and deleted at 150 ms:
 
 ```
   $('p').Typewrite({
