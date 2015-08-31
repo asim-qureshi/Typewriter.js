@@ -21,8 +21,8 @@
 						 
 		setLines: function () {
 			var typeLine,
-				typeWord,
-				space = '<span class="type_letter">&nbsp;</span>';
+			    typeWord,
+			    space = '<span class="type_letter">&nbsp;</span>';
 			
 			for (var i = 0; i < this.sentences.length; i++) {
 				typeLine = '';
@@ -46,6 +46,7 @@
 				.append(this.lines[index])
 				.find('span.type_letter').hide()
 				.end()
+				.show()
 				.find('span.cursor').show();
 			this.reveal(index);
 		},
