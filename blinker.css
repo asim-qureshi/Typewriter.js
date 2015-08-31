@@ -1,0 +1,65 @@
+/* Below is the CSS to animate the cursor, giving it the blinking effect: */
+
+@-webkit-keyframes blinker {
+  0% {
+    color: transparent; 
+    }
+  50% {
+    color: #000; 
+    }
+  100% {
+    color: transparent; 
+    } 
+  }
+@-moz-keyframes blinker {
+  0% {
+    color: transparent; 
+    }
+  50% {
+    color: #000;
+    }
+  100% {
+    color: transparent; 
+    } 
+  }
+@-ms-keyframes blinker {
+  0% {
+    color: transparent; 
+    }
+  50% {
+    color: #000; 
+    }
+  100% {
+    color: transparent; 
+    }
+  }
+@-o-keyframes blinker {
+  0% {
+    color: transparent; 
+    }
+  50% {
+    color: #000; 
+    }
+  100% {
+    color: transparent; 
+    }
+  }
+@keyframes blinker {
+  0% {
+    color: transparent; 
+    }
+  50% {
+    color: #000; 
+    }
+  100% {
+    color: transparent; } 
+}
+
+
+.cursor {
+  -webkit-animation: blinker 1s infinite;
+  -moz-animation: blinker 1s infinite;
+  -ms-animation: blinker 1s infinite;
+  o-animation: blinker 1s infinite;
+  animation: blinker 1s infinite; 
+}
