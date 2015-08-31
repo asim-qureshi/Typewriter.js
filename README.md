@@ -60,7 +60,7 @@ In the example above, the 'sentences' array will be typed into the selected elem
       });
 ```
 
-In the example above, the content is embedded in the HTML, hidden with CSS, and will be typed in via Typewriter. Typewriter will automatically adjust the CSS to show the element when typing in. 
+In the example above, the content is embedded in the HTML, hidden with CSS, and will be typed in via Typewriter. Typewriter will automatically adjust the CSS to show the element when typing in, so you don't have to worry about adjusting it later.
 
 ## **About the cursor animation: 
 
