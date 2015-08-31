@@ -5,17 +5,9 @@
 	var Typed = {
 
 		init: function (config, element) {
-			var i;
 			config = typeof (config) !== 'object' ? {} : config;
-			this.elem = $(element).css('white-space', 'pre'); //preserve whitespace
-			this.sentences = [];
-			if (config.sentences) {
-				for (i = 0; i < config.sentences.length; i++) {
-					this.sentences[i] = config.sentences[i].split('');
-				}
-			} else {
-				this.sentences.push(this.elem.text());
-			}
+			this.elem = $(element).css({'white-space': 'pre', 'word-wrap': 'normal'}); //preserve whitespace
+			this.sentences = config.sentences || [this.elem.text()];
 			this.lineSpeed = config.lineSpeed || 1000;
 			this.typeSpeed = config.typeSpeed || 100;
 			this.backSpeed = config.backSpeed || 50;
@@ -26,81 +18,92 @@
 			this.setLines();
 			this.typing();
 		},
-
+						 
 		setLines: function () {
-			var i,
-			    x,
-			    typeLine;
-			this.elem.empty().hide();
-			for (i = 0; i < this.sentences.length; i++) {
+			var typeLine,
+				typeWord,
+				space = '<span class="type_letter">&nbsp;</span>';
+			
+			for (var i = 0; i < this.sentences.length; i++) {
 				typeLine = '';
-				for (x = 0; x < this.sentences[i].length; x++) {
-					this.sentences[i][x] = this.sentences[i][x].replace(/\s/g, '&nbsp;');
-					typeLine += '<span class="type_letter">' + this.sentences[i][x] + '</span>';
+				this.sentences[i] = this.sentences[i].split(' ');
+				for (var j = 0; j < this.sentences[i].length; j++) {
+					typeWord = '<span class="type_word" style="display:inline-block">';
+					for (var k = 0; k < this.sentences[i][j].length; k++) {
+						typeWord += "<span class='type_letter'>" + this.sentences[i][j][k] + "</span>";
+					}
+					typeWord += j < this.sentences[i].length - 1 ? space + '</span>' : '</span>';
+					typeLine += typeWord;
+					
 				}
-				this.lines[i] = typeLine + '<span class="cursor">|</span>';
+				this.lines[i] = typeLine + '<span class="cursor" style="postion:absolute">|</span>';
 			}
 		},
-
+						 				 
 		typing: function (index) {
 			index = !index ? 0 : index;
-			this.elem.empty()
+			this.elem.css('white-space', 'normal').empty()
 				.append(this.lines[index])
-				.find('.type_letter').hide()
+				.find('span.type_letter').hide()
 				.end()
-				.show()
-				.find('.cursor').show();
+				.find('span.cursor').show();
 			this.reveal(index);
 		},
 
 		reveal: function (index) {
-			var self = this,
-				sentenceLength = this.sentences[index].length,
-				pause = this.typeSpeed,
-				i;
+			var letterCount = this.lines[index].length,
+			    pause = this.typeSpeed,
+			    queue = 0,
+			    word;
 			
-			for (i = 0; i < this.sentences[index].length; i++) {
-				this.elem.find('.type_letter:nth-child(' + (i + 1) + ')').delay((i + 1) * pause).show(10);
+			for (var i = 0; i < this.sentences[index].length; i++) {
+				word = this.elem.find('span.type_word:nth-child(' + (i + 1) + ' )');
+				for (var j = 0; j < this.sentences[index][i].length + 1; j++) {
+					word.find('span.type_letter:nth-child(' + (j + 1) + ')')
+							.delay(((j + 1) * pause) + queue).show(10);
+				}
+				queue += this.sentences[index][i].length * pause;
 			}
-			
-			setTimeout(function () {
-				self.deleteText(index);
-			}, sentenceLength * pause + self.lineSpeed);
+			this.deleteText(index, queue + this.lineSpeed);
 		},
 
-		deleteText: function (index) {
-			if (index + 1 < this.limit) {
-				this.backspace(index);
-			} else {
-				this.endType();
-			}
+		deleteText: function (index, delay) {
+			var self = this;
+			setTimeout(function () {
+			index + 1 < self.limit ? self.backspace(index) : self.endType();
+			}, delay);
 		},
 		
 		backspace: function (index) {
+			
 			var self = this,
 			    slot = index === 'loop' ? this.sentences.length - 1 : index,
 			    reverse = this.sentences[slot].length,
 			    pause = this.backSpeed,
 			    relayDelay = (reverse * this.backSpeed) + this.lineSpeed,
-			    i;
-			for (i = 0; i < this.sentences[slot].length; i++) {
-				this.elem.find('.type_letter:nth-child(' + reverse + ')').delay((i + 1) * pause).fadeOut(10);
-				reverse -= 1;
-			}
-			setTimeout(function () {
-				if (index === 'loop') {
-					self.typing();
-				} else {
-					self.typing(index + 1);
+			    word,
+			    queue = 0;
+			
+			for (var i = reverse; i > 0; i--) {
+				word = this.elem.find('span.type_word:nth-child(' + i + ')');
+				for (var j = this.sentences[slot][i - 1].length + 1, k = 1; j > 0; j--, k++) {
+					word.find('span.type_letter:nth-child(' + j + ')')
+						.delay((k * pause) + queue).fadeOut(10);
 				}
-			}, relayDelay);
+				queue += this.sentences[slot][i - 1].length * pause;
+				word.delay(queue).fadeOut(10);
+			}
+			
+			setTimeout(function () {
+				index === 'loop' ? self.typing() : self.typing(index + 1);
+			}, relayDelay + queue);
 		},
 
 		endType: function () {
 			if (this.loop) {
 				this.backspace('loop');
 			} else if (this.removeCursor) {
-				this.elem.find('.cursor').hide();
+				this.elem.find('span.cursor').hide();
 			}
 		}
 
