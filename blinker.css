@@ -47,6 +47,6 @@
 .cursor {
   -webkit-animation: blinker 1s infinite;
   -moz-animation: blinker 1s infinite;
-  o-animation: blinker 1s infinite;
+  -o-animation: blinker 1s infinite;
   animation: blinker 1s infinite; 
 }
